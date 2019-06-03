@@ -5,7 +5,7 @@ colLen [] = 0
 colLen (_:xs) = 1 + colLen xs 
 
 meanList :: Fractional a => [a] -> a
-meanList xs = (sum xs) / (fromIntegral $ length xs)
+meanList xs = sum xs / fromIntegral (length xs)
 
 toPalindrome :: [a] -> [a]
 toPalindrome xs = xs ++ reverse xs
@@ -46,7 +46,7 @@ calcDirection (a1, a2) (b1, b2) (c1, c2)
     where 
         m = (b2 - a2)/(b1 - a1)
         c = a2 - (m * a1)
-
+{-
 
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree = tree
@@ -54,7 +54,7 @@ insert message Leaf = Node Leaf Message Leaf
 insert message@(LogMessage _ time _) (Node leftNode (LogMessage _ treeTime _) rightNode) |
     time <= treeTime = insert message leftNode |
     otherwise = insert message rightNode
-
+-}
 -- direction a b c = (x b - x a) (y)
 
 -- if (y > mx + c) left
