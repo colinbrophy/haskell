@@ -21,9 +21,8 @@ sortLen = sortBy cmpLen where
     | otherwise = EQ
 
 intersperse :: a -> [[a]] -> [a]
-intersperse _ [] = [] 
-intersperse _ [x] = x
-intersperse sep (x:xs) = x ++ (sep : intersperse sep xs)
+intersperse _ [] = []
+intersperse sep (x:xs) = foldl (\acc y -> acc ++ sep : y) x xs
 
 data Tree a = Node a (Tree a) (Tree a)
             | Empty

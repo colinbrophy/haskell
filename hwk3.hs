@@ -19,9 +19,6 @@ localMaxima _ = []
 
 lm a = [y | (x:y:z:_) <- tails a, x < y && y > z]
 
-
-
-
 rotate = reverse . transpose
 histogram = unlines . rotate . formattedBars
 formattedBars xs = zipWith (\x y -> x : '=' : y) ['0'..'9'] bars
