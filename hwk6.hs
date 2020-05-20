@@ -32,6 +32,18 @@ nats = streamFromSeed (+1) 0
 x :: Stream Integer
 x = Stream 0 . Stream 1 $ streamRepeat 0
 
+interleaveStreams (Stream x xs) y = 
+  Stream x $ interleaveStreams y xs
+
+
+
+--foo :: Integer -> Stream Integer
+--foo n = interleaveStreams (streamRepeat n) (foo (n + 1))
+--ruler = foo 0 
+ruler = interleaveStreams (streamRepeat 0) (streamMap succ ruler)
+-- ruler = interleave (repeat 0) 
+--                   (map (+1) ruler)
+
 instance Num (Stream Integer) where
     fromInteger n = Stream n $ streamRepeat 0
     (+) (Stream a x) (Stream b y) = Stream (a + b) (x + y)
