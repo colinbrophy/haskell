@@ -42,3 +42,15 @@ instance Applicative Parser where
 instance Alternative Parser where
   empty = Parser (const Nothing)
   Parser p1 <|> Parser p2 = Parser $ liftA2 (<|>) p1 p2
+
+zeroOrMore :: Parser a -> Parser [a]
+zeroOrMore p = oneOrMore p <|> pure []
+
+oneOrMore  :: Parser a -> Parser [a] 
+oneOrMore p = liftA2 (:) p $ zeroOrMore p
+
+spaces :: Parser String
+spaces = zeroOrMore $ satisfy isSpace
+
+ident :: Parser String
+ident = liftA2 (:) (satisfy isAlpha) $ zeroOrMore (satisfy isAlphaNum)
